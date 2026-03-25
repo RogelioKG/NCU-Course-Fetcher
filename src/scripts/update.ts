@@ -1,18 +1,18 @@
-import type { MergedDataOutput } from '../types'
+import type { CourseData } from '../types'
 import fs from 'node:fs/promises'
 import process from 'node:process'
 import { CourseFetcher } from '../core/course-fetcher'
 import { env } from '../helpers/env'
 import { loggers } from '../helpers/logger'
 
-async function writeLocal(data: MergedDataOutput) {
+async function writeLocal(data: CourseData) {
   loggers.system.info('Writing result into data/all.json ...')
   await fs.mkdir('data', { recursive: true })
   await fs.writeFile('data/all.json', JSON.stringify(data))
   loggers.system.info('Done.')
 }
 
-async function syncBackend(data: MergedDataOutput) {
+async function syncBackend(data: CourseData) {
   loggers.system.info('Syncing to Backend API...')
   const token = env.API_TOKEN
   const apiUrl = env.API_URL
